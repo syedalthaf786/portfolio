@@ -40,54 +40,16 @@
 //   echo $contact->send();
 // ?>
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize and validate input data
-    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-    $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING);
+if (isset($_POST['submit'])) {
+$name = $_POST['name'];
+$subject = $_POST['subject'];
+$mailFrom = $_POST['mail'];
+$message = $_POST['message'];
 
-    // Validate the form data
-    $errors = [];
+$mailTo = "syedalthaf760@gmail.com";
+$headers = "From: ".$mailFrom;
+$txt = "You have received an e-mail from ".$name.".\n\n".$message;
 
-    if (empty($name)) {
-        $errors[] = 'Name is required.';
-    }
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = 'A valid email is required.';
-    }
-    if (empty($message)) {
-        $errors[] = 'Message is required.';
-    }
-
-    if (empty($errors)) {
-        // Process form data (e.g., send an email or store it in a database)
-        // Example: Sending an email
-        $to = 'syedalthaf760@gmail.com'; // Change this to your email address
-        $subject = 'New Contact Form Submission';
-        $headers = "From: $email\r\n";
-        $headers .= "Reply-To: $email\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-
-        $emailBody = "Name: $name\n";
-        $emailBody .= "Email: $email\n";
-        $emailBody .= "Message:\n$message\n";
-
-        if (mail($to, $subject, $emailBody, $headers)) {
-            echo "Form submitted successfully!";
-        } else {
-            echo "There was a problem sending your message. Please try again later.";
-        }
-    } else {
-        // Display validation errors
-        echo "There were errors in your form submission:\n";
-        foreach ($errors as $error) {
-            echo "$error\n";
-        }
-    }
-} else {
-    // Method not allowed
-    header('HTTP/1.1 405 Method Not Allowed');
-    echo "405 Method Not Allowed";
+mail($mailTo, $subject, $txt, $headers);
+header("Location: index.html?mailsend");
 }
-?>
-
