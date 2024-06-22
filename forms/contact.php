@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         // Process form data (e.g., send an email or store it in a database)
         // Example: Sending an email
-        $to = 'your-email@example.com'; // Change this to your email address
+        $to = 'syedalthaf760@gmail.com'; // Change this to your email address
         $subject = 'New Contact Form Submission';
         $headers = "From: $email\r\n";
         $headers .= "Reply-To: $email\r\n";
