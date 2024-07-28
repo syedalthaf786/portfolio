@@ -543,7 +543,29 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+<script>
+  const form = document.getElementById('contact-form');
 
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await response.json();
+    console.log(data);
+
+    if (data.message) {
+      alert('Form submitted successfully!');
+      form.reset();
+    } else {
+      alert('Error submitting form');
+    }
+  });
+</script></script>
 </body>
 
 </html>
