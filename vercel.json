@@ -1,16 +1,1 @@
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "index.html",
-      "use": "@vercel/python",
-      "config": {}
-    }
-  ],
-  "routes": [
-    {
-      "src": "/send-email",
-      "dest": "app.py"
-    }
-  ]
-}
+
